@@ -1,0 +1,23 @@
+node_modules/
+
+# Minifified files
+*.min.*
+
+/*.svg
+/*.ttf
+/*.woff2
+/*.woff
+/*.eot
+
+# Webpack bundles
+/build/bundle.js
+
+# Don't add compiled
+*-compiled.js
+*-compiled.js.map
+
+# Jetbrains IDEs
+.idea/
+
+# OSX
+.DS_Store
