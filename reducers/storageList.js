@@ -2,7 +2,9 @@ import { default as ActionTypes } from '../actions'
 
 const initialState = {
     entries: {},
-    size: 0
+    size: 0,
+    filterBy: null,
+    filterSize: 0
 };
 
 export default function storageList(state = initialState, action) {
@@ -19,7 +21,7 @@ export default function storageList(state = initialState, action) {
             return Object.assign({}, state, {
                 entries: Object.assign({
                     [storage.name]: storage
-                }, state.entries()),
+                }, state.entries),
                 size: state.size + 1
             });
         default:

@@ -3,6 +3,7 @@ import { default as ActionTypes } from '../actions'
 const initialState = {
     name: '',
     points: [],
+    color: 'black',
     saved: false,
     newStorage: false
 };
@@ -32,6 +33,8 @@ export default function storage(state = initialState, action) {
             return Object.assign({}, state, {
                 points
             });
+        case ActionTypes.STORAGE_UPDATE:
+            return Object.assign({}, state, action.payload.data);
         case ActionTypes.STORAGE_SAVE:
             return Object.assign({}, initialState, {
                 saved: true

@@ -46,6 +46,22 @@ export function popStoragePoint() {
 }
 
 /**
+ * Update storage
+ */
+export const STORAGE_UPDATE = 'STORAGE_UPDATE';
+
+export function updateStorage(data) {
+    return function (dispatch, getState) {
+        dispatch({
+            type: STORAGE_UPDATE,
+            payload: {
+                data
+            }
+        })
+    }
+}
+
+/**
  * Save storage
  */
 export const STORAGE_SAVE = 'STORAGE_SAVE';

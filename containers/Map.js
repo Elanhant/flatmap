@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import * as StorageActions from '../actions/storage.js';
 
 import Storage from '../components/Storage.js';
+import StorageForm from './StorageForm.js';
 
 @connect(
     state => ({
@@ -107,7 +108,7 @@ export default class Map extends React.Component {
     }
 
     renderLastPoint() {
-        const { storage: { points = [] } } = this.props;
+        const { storage: { points = [], color } } = this.props;
         const { step } = this.state;
 
         if (points.length === 0) {
@@ -115,14 +116,14 @@ export default class Map extends React.Component {
         }
         const lastPoint = points[points.length - 1];
         return (
-            <circle cx={lastPoint.x} cy={lastPoint.y} r={step / 2} fill="purple" />
+            <circle cx={lastPoint.x} cy={lastPoint.y} r={step / 2} stroke="white" strokeWidth="2" fill={color} />
         );
     }
 
     render() {
         const { gridCoords } = this.state;
         const {
-            storage: { points = [], newStorage },
+            storage: { points = [], newStorage, color },
             storageList: { entries = {} },
             width = 800,
             height = 600
@@ -130,18 +131,13 @@ export default class Map extends React.Component {
 
         return (
             <section>
-                <div>
-                    { !newStorage && <button onClick={this.startNewStorage.bind(this)}>Add new Storage</button> }
-                    { newStorage && <input type="text" name="storageName" placeholder="Storage name..." /> }
-                    { newStorage && <button onClick={this.saveNewStorage.bind(this)}>Save</button> }
-                    { newStorage && <button onClick={this.cancelNewStorage.bind(this)}>Cancel</button> }
-                </div>
+                <StorageForm />
                 <svg width={width} height={height} onClick={this.addStoragePoint.bind(this)}>
                     {gridCoords.map( ({ x1, y1, x2, y2 }) =>
                         <line key={`${x1} ${y1} ${x2} ${y2}`} x1={x1} y1={y1} x2={x2} y2={y2} style={{stroke: "rgba(181, 181, 181, .7)", strokeWidth: 1}} />
                     )}
-                    {Object.keys(entries).map( key => <Storage key={key} data={entries[key].points} color="orange" /> )}
-                    <Storage data={points} color="purple" />
+                    {Object.keys(entries).map( key => <Storage key={key} data={entries[key].points} color={`#${entries[key].color}`} /> )}
+                    <Storage data={points} color={color} />
                     {this.renderLastPoint()}
                 </svg>
             </section>
