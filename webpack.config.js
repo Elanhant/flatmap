@@ -15,6 +15,9 @@ module.exports = {
             test: /\.jsx?$/, // A regexp to test the require path. accepts either js or jsx
             loader: 'babel-loader', // The module to load. "babel" is short for "babel-loader"
             query: {
+                plugins: [
+                    'transform-decorators-legacy'
+                ],
                 presets: ['react', 'es2015', 'stage-1']
             }
         }]

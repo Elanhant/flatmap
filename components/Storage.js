@@ -5,8 +5,8 @@ export default class Storage extends React.Component {
 
     prepareData() {
         let collector = this.props.data.map(chunk => {
-            let xNext = chunk[0];
-            let yNext = chunk[1];
+            let xNext = chunk.x;
+            let yNext = chunk.y;
             return `${xNext},${yNext}`;
         });
 
@@ -15,7 +15,6 @@ export default class Storage extends React.Component {
 
     render() {
         let d = this.prepareData();
-        console.log(d);
         return(
             <polygon points={d}
                   stroke={this.props.color}

@@ -1,10 +1,18 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import * as StorageActions from '../actions/storage.js';
+
 import Storage from '../components/Storage.js';
 
+@connect(
+    state => ({
+        storage: state.storage,
+        storageList: state.storageList
+    })
+)
 export default class Map extends React.Component {
     state = {
         newStorage: false,
-        newStorageCoords: [],
         gridCoords: [],
         step: 20
     };
@@ -46,31 +54,22 @@ export default class Map extends React.Component {
     }
 
     startNewStorage() {
-        this.setState({
-            newStorage: true,
-            newStorageCoords: []
-        });
+        this.props.dispatch(StorageActions.newStorage());
     }
 
     cancelNewStorage() {
-        this.setState({
-            newStorage: false,
-            newStorageCoords: []
-        });
+        this.props.dispatch(StorageActions.cancelStorage());
     }
 
-    addStorageCoords(e) {
-        if (!this.state.newStorage) {
+    addStoragePoint(e) {
+        if (!this.props.storage.newStorage) {
             return;
         }
-        const { newStorageCoords, step } = this.state;
+        const { storage: { points = [] } } = this.props;
+        const { step } = this.state;
 
         if (e.ctrlKey) {
-            let newCoords = [].concat(newStorageCoords);
-            newCoords.pop();
-            this.setState({
-                newStorageCoords: newCoords
-            });
+            this.props.dispatch(StorageActions.popStoragePoint());
             return;
         }
         const
@@ -79,13 +78,13 @@ export default class Map extends React.Component {
         let
             x = e.clientX - dim.left,
             y = e.clientY - dim.top;
-        if (e.shiftKey && newStorageCoords.length > 0) {
-            const lastAddedCoord = newStorageCoords[newStorageCoords.length - 1];
-            let tg = Math.abs(lastAddedCoord[1] - y) / Math.abs(lastAddedCoord[0] - x);
+        if (e.shiftKey && points.length > 0) {
+            const lastAddedPoint = points[points.length - 1];
+            let tg = Math.abs(lastAddedPoint.y - y) / Math.abs(lastAddedPoint.x - x);
             if (tg > Math.sqrt(2) / 2) {
-                x = lastAddedCoord[0];
+                x = lastAddedPoint.x;
             } else {
-                y = lastAddedCoord[1];
+                y = lastAddedPoint.y;
             }
         }
 
@@ -95,37 +94,54 @@ export default class Map extends React.Component {
         const modY = y % step;
         y = modY <= step / 2 ? y - modY : y + 20 - modY;
 
-        this.setState({
-            newStorageCoords: [].concat(this.state.newStorageCoords).concat([[x, y]])
-        });
+        this.props.dispatch(StorageActions.pushStoragePoint(x, y));
+    }
+
+    saveNewStorage() {
+        const { storage: { points = [] } } = this.props;
+        if (points.length < 3) {
+            alert("The storage needs at least 3 points");
+            return;
+        }
+        this.props.dispatch(StorageActions.saveStorage());
     }
 
     renderLastPoint() {
-        const { newStorageCoords, step } = this.state;
-        if (newStorageCoords.length === 0) {
+        const { storage: { points = [] } } = this.props;
+        const { step } = this.state;
+
+        if (points.length === 0) {
             return null;
         }
-        const lastCoords = newStorageCoords[newStorageCoords.length - 1];
+        const lastPoint = points[points.length - 1];
         return (
-            <circle cx={lastCoords[0]} cy={lastCoords[1]} r={step / 2} fill="purple" />
+            <circle cx={lastPoint.x} cy={lastPoint.y} r={step / 2} fill="purple" />
         );
     }
 
     render() {
-        const { newStorage, newStorageCoords, gridCoords } = this.state;
-        const { width = 800, height = 600 } = this.props;
+        const { gridCoords } = this.state;
+        const {
+            storage: { points = [], newStorage },
+            storageList: { entries = {} },
+            width = 800,
+            height = 600
+            } = this.props;
 
         return (
             <section>
                 <div>
                     { !newStorage && <button onClick={this.startNewStorage.bind(this)}>Add new Storage</button> }
+                    { newStorage && <input type="text" name="storageName" placeholder="Storage name..." /> }
+                    { newStorage && <button onClick={this.saveNewStorage.bind(this)}>Save</button> }
                     { newStorage && <button onClick={this.cancelNewStorage.bind(this)}>Cancel</button> }
                 </div>
-                <svg width={width} height={height} onClick={this.addStorageCoords.bind(this)}>
+                <svg width={width} height={height} onClick={this.addStoragePoint.bind(this)}>
                     {gridCoords.map( ({ x1, y1, x2, y2 }) =>
                         <line key={`${x1} ${y1} ${x2} ${y2}`} x1={x1} y1={y1} x2={x2} y2={y2} style={{stroke: "rgba(181, 181, 181, .7)", strokeWidth: 1}} />
                     )}
-                    <Storage data={newStorageCoords} color="purple" />
+                    {Object.keys(entries).map( key => <Storage key={key} data={entries[key].points} color="orange" /> )}
+                    <Storage data={points} color="purple" />
                     {this.renderLastPoint()}
                 </svg>
             </section>
