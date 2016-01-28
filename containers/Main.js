@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as StorageListActions from '../actions/storageList.js';
 import Map from './Map.js';
+import Header from '../components/Header.js';
 import SearchField from '../components/SearchField.js';
 import StorageListContainer from './StorageList.js';
 
@@ -13,15 +14,19 @@ export default class Main extends React.Component {
 
     render() {
         return (
-            <section style={{display: 'table'}}>
-                <div style={{width: '50%', display: 'table-cell'}}>
+            <main>
+                <Header>
                     <SearchField />
-                    <Map />
-                </div>
-                <div style={{width: '50%', display: 'table-cell'}}>
-                    <StorageListContainer />
-                </div>
-            </section>
+                </Header>
+                <section style={{display: 'table'}}>
+                    <div style={{width: '50%', display: 'table-cell'}}>
+                        <Map />
+                    </div>
+                    <div style={{width: '50%', display: 'table-cell'}}>
+                        <StorageListContainer />
+                    </div>
+                </section>
+            </main>
         )
     }
 }
