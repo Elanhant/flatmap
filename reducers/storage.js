@@ -13,7 +13,6 @@ export default function storage(state = initialState, action) {
     switch (action.type) {
         case ActionTypes.STORAGE_NEW:
             return Object.assign({}, initialState, {
-                name: 'New storage',
                 newStorage: true
             });
         case ActionTypes.STORAGE_CANCEL:

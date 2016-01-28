@@ -69,10 +69,10 @@ export const STORAGE_SAVE = 'STORAGE_SAVE';
 export function saveStorage() {
     return function (dispatch, getState) {
         let storageList = localStorage.getItem('storages');
-        storageList = storageList ? JSON.parse(storageList) : {};
+        storageList = storageList ? JSON.parse(storageList) : [];
 
         const storage = getState().storage;
-        storageList[storage.name] = storage;
+        storageList.push(storage);
 
         localStorage.setItem('storages', JSON.stringify(storageList));
 

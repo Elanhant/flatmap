@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import * as StorageListActions from '../actions/storageList.js';
 import Map from './Map.js';
 import SearchField from '../components/SearchField.js';
+import StorageListContainer from './StorageList.js';
 
 @connect()
 export default class Main extends React.Component {
@@ -12,9 +13,14 @@ export default class Main extends React.Component {
 
     render() {
         return (
-            <section>
-                <Map />
-                <SearchField />
+            <section style={{display: 'table'}}>
+                <div style={{width: '50%', display: 'table-cell'}}>
+                    <SearchField />
+                    <Map />
+                </div>
+                <div style={{width: '50%', display: 'table-cell'}}>
+                    <StorageListContainer />
+                </div>
             </section>
         )
     }

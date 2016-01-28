@@ -124,10 +124,12 @@ export default class Map extends React.Component {
         const { gridCoords } = this.state;
         const {
             storage: { points = [], newStorage, color },
-            storageList: { entries = {} },
+            storageList: { entries = [], filtered = [], filterBy = null },
             width = 800,
             height = 600
             } = this.props;
+
+        const storages = filterBy ? filtered : entries;
 
         return (
             <section>
@@ -136,7 +138,7 @@ export default class Map extends React.Component {
                     {gridCoords.map( ({ x1, y1, x2, y2 }) =>
                         <line key={`${x1} ${y1} ${x2} ${y2}`} x1={x1} y1={y1} x2={x2} y2={y2} style={{stroke: "rgba(181, 181, 181, .7)", strokeWidth: 1}} />
                     )}
-                    {Object.keys(entries).map( key => <Storage key={key} data={entries[key].points} color={`#${entries[key].color}`} /> )}
+                    {storages.map( (entry, idx) => <Storage key={idx} data={entry.points} color={`#${entry.color}`} /> )}
                     <Storage data={points} color={color} />
                     {this.renderLastPoint()}
                 </svg>
