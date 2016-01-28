@@ -3,6 +3,8 @@ import CompactPicker from 'react-color/lib/components/CompactPicker';
 import { connect } from 'react-redux';
 import * as StorageActions from '../actions/storage.js';
 
+import Button from '../components/Button.js';
+
 @connect(
     state => ({
         storage: state.storage,
@@ -56,11 +58,11 @@ export default class StorageForm extends React.Component {
                     onChangeComplete={color => this.handleChange('color', color.hex)}
                 />
                 <input type="submit" value="Save" />
-                <button onClick={this.cancelNewStorage.bind(this)}>Cancel</button>
+                <Button onClick={this.cancelNewStorage.bind(this)}>Cancel</Button>
             </form>
         ) : (
             <div>
-                <button onClick={this.startNewStorage.bind(this)}>Add new Storage</button>
+                <Button onClick={this.startNewStorage.bind(this)}>Add new Storage</Button>
             </div>
         );
     }

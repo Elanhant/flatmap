@@ -1,12 +1,13 @@
 import React from 'react';
-import bem from '../decorators/bem';
+import CSSModules from 'react-css-modules';
+import styles from './storageList.scss';
 
-const StorageList = (bem, props) => {
+const StorageList = props => {
     return (
-        <ul className={bem.block()}>
+        <ul styleName="list">
             {Object.keys(props.data).map( key => {
                 return (
-                    <li key={key} className={bem.element('entry')}>
+                    <li key={key} styleName="item">
                         {props.data[key].name}
                     </li>
                 );
@@ -15,6 +16,4 @@ const StorageList = (bem, props) => {
     )
 };
 
-export default bem({
-    block: 'storageList'
-})(StorageList);
+export default CSSModules(StorageList, styles);

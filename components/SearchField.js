@@ -1,20 +1,19 @@
 import React from 'react';
-import bem from '../decorators/bem';
+import CSSModules from 'react-css-modules';
+import styles from './searchField.scss';
 
-const SearchField = (bem, props) => {
+const SearchField = props => {
     return (
-        <div className={bem.block()}>
+        <div styleName="wrapper">
             <input
-                className={bem.element('input')}
+                styleName="input"
                 type="text"
                 {...props}
                 onChange={ e => props.onChange(e.target.value) }
             />
-            <i className={bem.element('icon')}></i>
+            <i styleName="icon"></i>
         </div>
     )
 };
 
-export default bem({
-    block: 'searchField'
-})(SearchField);
+export default CSSModules(SearchField, styles);

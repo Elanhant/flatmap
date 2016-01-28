@@ -16,14 +16,16 @@ export default class Main extends React.Component {
         return (
             <main>
                 <Header>
-                    <SearchField />
+                    <SearchField placeholder="Find" />
                 </Header>
-                <section style={{display: 'table'}}>
+                <section style={{display: 'table', width: '100%'}}>
                     <div style={{width: '50%', display: 'table-cell'}}>
                         <Map />
                     </div>
-                    <div style={{width: '50%', display: 'table-cell'}}>
+                    <div style={{width: '25%', display: 'table-cell'}}>
                         <StorageListContainer />
+                    </div>
+                    <div style={{width: '25%', display: 'table-cell'}}>
                     </div>
                 </section>
             </main>

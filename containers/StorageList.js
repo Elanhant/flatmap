@@ -24,7 +24,7 @@ export default class StorageListContainer extends React.Component {
 
         return (
             <section>
-                <SearchField onChange={this.handleSearch.bind(this)} />
+                <SearchField placeholder="Filter storages..." onChange={this.handleSearch.bind(this)} />
                 <StorageList data={storages} />
             </section>
         );
