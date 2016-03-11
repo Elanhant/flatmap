@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { filterStorages } from '../actions/storageList.js';
+import { newItem } from '../actions/item.js';
 
 import SearchField from '../components/SearchField.js';
 import StorageList from '../components/StorageList.js';
@@ -16,6 +17,10 @@ export default class StorageListContainer extends React.Component {
         this.props.dispatch(filterStorages(needle));
     }
 
+    handleNewItem(storage) {
+        this.props.dispatch(newItem(storage));
+    }
+
     render() {
         const {
             storageList: { entries = [], filtered = [], filterBy = null },
@@ -25,7 +30,7 @@ export default class StorageListContainer extends React.Component {
         return (
             <section>
                 <SearchField placeholder="Filter storages..." onChange={this.handleSearch.bind(this)} />
-                <StorageList data={storages} />
+                <StorageList data={storages} onNewItem={this.handleNewItem.bind(this)} />
             </section>
         );
     }

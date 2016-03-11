@@ -1,13 +1,19 @@
 import React from 'react';
+import createFragment from 'react-addons-create-fragment';
 import { connect } from 'react-redux';
 import * as StorageListActions from '../actions/storageList.js';
 import Map from './Map.js';
 import Header from '../components/Header.js';
 import SearchField from '../components/SearchField.js';
+import ItemForm from '../forms/ItemForm.js';
 import ItemsListContainer from './ItemsList.js';
 import StorageListContainer from './StorageList.js';
 
-@connect()
+@connect(
+    state => ({
+        item: state.item
+    })
+)
 export default class Main extends React.Component {
     componentDidMount() {
         this.props.dispatch(StorageListActions.getStorages());
@@ -28,6 +34,7 @@ export default class Main extends React.Component {
                     </div>
                     <div style={{width: '25%', display: 'table-cell'}}>
                         <ItemsListContainer />
+                        {this.props.item.newItem && <ItemForm />}
                     </div>
                 </section>
             </main>

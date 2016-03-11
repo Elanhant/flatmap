@@ -9,6 +9,9 @@ const StorageList = props => {
                 return (
                     <li key={key} styleName="item">
                         {props.data[key].name}
+                        <button onClick={() => props.onNewItem && props.onNewItem(props.data[key].name)}>
+                            Add item
+                        </button>
                     </li>
                 );
             })}
