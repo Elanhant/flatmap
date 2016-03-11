@@ -124,7 +124,7 @@ export default class Map extends React.Component {
     render() {
         const { gridCoords } = this.state;
         const {
-            storage: { points = [], newStorage, color },
+            storage: { points = [], newStorage, color, name },
             storageList: { entries = [], filtered = [], filterBy = null },
             width = 800,
             height = 600
@@ -139,7 +139,7 @@ export default class Map extends React.Component {
                     {gridCoords.map( ({ x1, y1, x2, y2 }) =>
                         <line key={`${x1} ${y1} ${x2} ${y2}`} x1={x1} y1={y1} x2={x2} y2={y2} style={{stroke: "rgba(181, 181, 181, .7)", strokeWidth: 1}} />
                     )}
-                    {storages.map( (entry, idx) => <Storage key={idx} data={entry.points} color={`#${entry.color}`} /> )}
+                    {storages.map( (entry, idx) => <Storage key={idx} data={entry.points} color={`#${entry.color}`} isCurrent={name === entry.name} /> )}
                     <Storage data={points} color={color} />
                     {this.renderLastPoint()}
                     <ItemPoint />

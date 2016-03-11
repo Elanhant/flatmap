@@ -1,6 +1,8 @@
 import React from 'react';
+import CSSModules from 'react-css-modules';
+import styles from './storage.scss';
 
-export default class Storage extends React.Component {
+class Storage extends React.Component {
     //static defaultProps = { multiplier: 20 };
 
     prepareData() {
@@ -16,11 +18,23 @@ export default class Storage extends React.Component {
     render() {
         let d = this.prepareData();
         return(
-            <polygon points={d}
-                  stroke={this.props.color}
-                  strokeWidth={1}
-                  fill={this.props.color}
-            />
+            <g>
+                {this.props.isCurrent && (
+                    <polygon points={d}
+                             styleName="pulse"
+                             stroke={this.props.color}
+                             strokeWidth={20}
+                             fill="#fff"
+                    />
+                )}
+                <polygon points={d}
+                         stroke={this.props.color}
+                         strokeWidth={1}
+                         fill={this.props.color}
+                />
+            </g>
         )
     }
 }
+
+export default CSSModules(Storage, styles);
