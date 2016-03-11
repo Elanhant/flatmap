@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as StorageActions from '../actions/storage.js';
 
+import ItemPoint from '../components/ItemPoint.js';
 import Storage from '../components/Storage.js';
 import StorageForm from './StorageForm.js';
 
@@ -141,6 +142,7 @@ export default class Map extends React.Component {
                     {storages.map( (entry, idx) => <Storage key={idx} data={entry.points} color={`#${entry.color}`} /> )}
                     <Storage data={points} color={color} />
                     {this.renderLastPoint()}
+                    <ItemPoint />
                 </svg>
             </section>
         );
