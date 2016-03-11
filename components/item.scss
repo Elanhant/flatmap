@@ -1,0 +1,38 @@
+.main {
+  background-color: #efe;
+}
+
+.full {
+  display: block;
+  padding-top: 10px;
+}
+
+.hidden {
+  display: none;
+}
+
+.name {
+  display: block;
+  width: 100%;
+  font-weight: bold;
+  margin: 0;
+}
+
+.date {
+  font-size: 80%;
+  opacity: .8;
+  color: grey;
+  text-align: right;
+}
+
+.desc {
+  font-size: 14px;
+  border-bottom: 1px solid darkgray;
+  margin-bottom: 10px;
+}
+
+.details {
+  font-size: 14px;
+  border-bottom: 1px solid darkgray;
+  margin-bottom: 5px;
+}
