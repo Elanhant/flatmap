@@ -21,8 +21,8 @@ export default function item(state = initialState, action) {
             return Object.assign({}, initialState, {
                 newItem: false
             });
-        //case ActionTypes.ITEM_UPDATE:
-        //    return Object.assign({}, state, action.payload.data);
+        case ActionTypes.ITEM_UPDATE:
+            return Object.assign({}, state, action.payload.data);
         case ActionTypes.ITEM_SAVE:
             return Object.assign({}, initialState, {
                 saved: true

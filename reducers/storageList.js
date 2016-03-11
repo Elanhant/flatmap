@@ -20,7 +20,7 @@ export default function storageList(state = initialState, action) {
         case ActionTypes.STORAGE_SAVE:
             storage = action.payload.storage;
             return Object.assign({}, state, {
-                entries: [].concat(entries).concat([storage]),
+                entries: [].concat(state.entries).concat([storage]),
                 size: state.size + 1
             });
         case ActionTypes.STORAGE_LIST_FILTER:

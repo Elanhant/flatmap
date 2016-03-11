@@ -20,7 +20,7 @@ export default function itemList(state = initialState, action) {
         case ActionTypes.ITEM_SAVE:
             item = action.payload.item;
             return Object.assign({}, state, {
-                entries: [].concat(entries).concat([item]),
+                entries: [].concat(state.entries).concat([item]),
                 size: state.size + 1
             });
         case ActionTypes.ITEM_LIST_FILTER:

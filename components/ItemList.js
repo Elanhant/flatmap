@@ -3,6 +3,7 @@ import CSSModules from 'react-css-modules';
 import styles from './itemList.scss';
 
 const ItemList = props => {
+    console.log(props.data);
     return (
         <ul styleName="list">
             {Object.keys(props.data).map( key => {

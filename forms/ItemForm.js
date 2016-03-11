@@ -13,7 +13,7 @@ export default class ItemForm extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
         e.stopPropagation();
-        console.log("SUBMIT ITEM");
+        this.props.dispatch(saveItem());
     }
 
     handleCancel(e) {
