@@ -84,3 +84,29 @@ export function saveStorage() {
         })
     }
 }
+
+/**
+ * Select storage
+ */
+export const STORAGE_SELECT = 'STORAGE_SELECT';
+
+export function selectStorage(storage) {
+    return {
+        type: STORAGE_SELECT,
+        payload: {
+            storage
+        }
+    };
+}
+
+/**
+ * Deselect storage
+ */
+export const STORAGE_DESELECT = 'STORAGE_DESELECT';
+
+export function deselectStorage() {
+    return {
+        type: STORAGE_DESELECT,
+        payload: {}
+    };
+}

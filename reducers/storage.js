@@ -38,6 +38,10 @@ export default function storage(state = initialState, action) {
             return Object.assign({}, initialState, {
                 saved: true
             });
+        case ActionTypes.STORAGE_SELECT:
+            return Object.assign({}, state, action.payload.storage);
+        case ActionTypes.STORAGE_DESELECT:
+            return initialState;
         default:
             return state;
     }

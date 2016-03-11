@@ -9,3 +9,8 @@
   border: 1px solid #ddd;
   padding: 16px 12px;
 }
+
+.active {
+  composes: item;
+  border-color: #00acc1;
+}
